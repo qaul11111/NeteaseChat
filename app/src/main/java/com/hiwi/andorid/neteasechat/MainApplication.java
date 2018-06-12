@@ -13,7 +13,7 @@ public class MainApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
+        DemoCache.setContext(this);
         NIMClient.init(this, loginInfo(), options());
 
         if (NIMUtil.isMainProcess(this)) {

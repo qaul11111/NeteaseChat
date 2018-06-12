@@ -100,6 +100,18 @@
             android:authorities="com.hiwi.andorid.neteasechat.ipc.provider"
             android:exported="false"
             android:process=":core" />
+
+
+
+
+
+        <!-- *************************************************************************************************** -->
+        <activity android:name=".activity.ActRegister"></activity>
+
+        <activity android:name=".activity.ActLogin"></activity>
+
+        <activity android:name=".activity.ActRecentConversation"></activity>
+        <!-- *************************************************************************************************** -->
     </application>
 
 </manifest>
