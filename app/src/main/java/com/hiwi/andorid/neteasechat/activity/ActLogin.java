@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -58,8 +59,15 @@ public class ActLogin extends Activity {
                         Toast.makeText(ActLogin.this,"登录成功",Toast.LENGTH_LONG).show();
                     }
                 });
-
             }
         });
+    }
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        finish();
+        overridePendingTransition(0,R.anim.out);
+        return super.onKeyDown(keyCode, event);
     }
 }

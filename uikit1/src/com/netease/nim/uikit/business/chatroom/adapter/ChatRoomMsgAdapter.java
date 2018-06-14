@@ -155,7 +155,6 @@ public class ChatRoomMsgAdapter extends BaseMultiItemFetchLoadAdapter<ChatRoomMe
                 }
             }
         }
-
         return update;
     }
 

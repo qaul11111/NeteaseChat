@@ -4,6 +4,7 @@
 
 
     <TextView
+        android:id="@+id/item_recent_conversatio_tv"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#433343"/>
