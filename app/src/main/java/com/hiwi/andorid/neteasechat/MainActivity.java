@@ -69,11 +69,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-
     private void init() {
 
-        login = (Button) findViewById(R.id.login);
-        register =(Button) findViewById(R.id.register);
+        login = findViewById(R.id.login);
+        register = findViewById(R.id.register);
         chatRecently = findViewById(R.id.chat_recently);
         mailList = findViewById(R.id.mail_list);
         singleChat = findViewById(R.id.single_chat);
@@ -91,41 +90,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if(v == login){
+        if (v == login) {
             //登录
             Intent intent = new Intent(this, ActLogin.class);
             startActivity(intent);
-        }else if(v == register){
+        } else if (v == register) {
             //注册
             Intent intent = new Intent(this, ActRegister.class);
             startActivity(intent);
-        }else if(v == chatRecently){
+        } else if (v == chatRecently) {
             //最近会话
             Intent intent = new Intent(this, ActRecentConversation.class);
             startActivity(intent);
-        }else if(v == chatRecently){
+        } else if (v == chatRecently) {
             //设置
-            Toast.makeText(MainActivity.this,"3",Toast.LENGTH_SHORT);
-        }else if(v == singleChat){
+            Toast.makeText(MainActivity.this, "3", Toast.LENGTH_SHORT);
+        } else if (v == singleChat) {
             //单聊
             Context c = NimUIKit.getContext();
             NimUIKit.startP2PSession(NimUIKit.getContext(), "qaul22222");
-        }else if(v == discussionGroup){
+        } else if (v == discussionGroup) {
             //讨论组聊天
-        }else if(v == groupChat){
+        } else if (v == groupChat) {
             //群聊
             NimUIKit.startTeamInfo(NimUIKit.getContext(), "qaul22222");
-        }else if(v == addFriend){
+        } else if (v == addFriend) {
             //添加好友
-        }else if(v == searchGroup){
+        } else if (v == searchGroup) {
             //搜索高级群
-        }else if(v == createGroup){
+        } else if (v == createGroup) {
             //创建讨论组
-        }else if(v == createSeniorGroup){
+        } else if (v == createSeniorGroup) {
             //创建高级群
-        }else if(v == setting){
+        } else if (v == setting) {
             //设置
-        }else if(v == ougOut){
+        } else if (v == ougOut) {
             //注销
         }
     }
