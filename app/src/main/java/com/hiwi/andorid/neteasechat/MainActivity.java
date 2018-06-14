@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if(v == login){
             //登录
+            System.out.print("");
             Intent intent = new Intent(this, ActLogin.class);
             startActivity(intent);
         }else if(v == register){
