@@ -72,8 +72,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void init() {
 
-        login = (Button) findViewById(R.id.login);
-        register =(Button) findViewById(R.id.register);
+        login = findViewById(R.id.login);
+        register = findViewById(R.id.register);
         chatRecently = findViewById(R.id.chat_recently);
         mailList = findViewById(R.id.mail_list);
         singleChat = findViewById(R.id.single_chat);
