@@ -111,6 +111,11 @@
         <activity android:name=".activity.ActLogin"></activity>
 
         <activity android:name=".activity.ActRecentConversation"></activity>
+
+        <activity android:name=".activity.ActMailList"></activity>
+
+        <activity android:name=".activity.MyGroupAdvanced"></activity>
+
         <!-- *************************************************************************************************** -->
     </application>
 

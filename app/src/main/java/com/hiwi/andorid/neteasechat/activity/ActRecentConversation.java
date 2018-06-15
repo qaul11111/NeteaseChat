@@ -12,6 +12,7 @@ import com.hiwi.andorid.neteasechat.R;
 import com.hiwi.andorid.neteasechat.adapter.AdapterRecentConversation;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nimlib.sdk.NIMClient;
+import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.RequestCallbackWrapper;
 import com.netease.nimlib.sdk.msg.MsgService;
 import com.netease.nimlib.sdk.msg.model.RecentContact;
@@ -61,6 +62,14 @@ public class ActRecentConversation extends Activity {
 
             }
         });
+
+
+        Observer<List<RecentContact>> messageObserver =
+                new Observer<List<RecentContact>>() {
+                    @Override
+                    public void onEvent(List<RecentContact> messages) {
+                    }
+                };
 
     }
 }

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/act_mail_list_group_n"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="我的聊天室"/>
+
+    <Button
+        android:id="@+id/act_mail_list_group_a"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="我的群聊"/>
+</LinearLayout>
