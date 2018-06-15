@@ -1,7 +1,6 @@
 package com.hiwi.andorid.neteasechat;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.hiwi.andorid.neteasechat.activity.ActAddFriends;
 import com.hiwi.andorid.neteasechat.activity.ActLogin;
 import com.hiwi.andorid.neteasechat.activity.ActMailList;
 import com.hiwi.andorid.neteasechat.activity.ActRecentConversation;
@@ -100,51 +100,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if(v == login){
-            //登录
-            System.out.print("");
-            Intent intent = new Intent(this, ActLogin.class);
-            startActivity(intent);
-        }else if(v == register){
-            //注册
-            Intent intent = new Intent(this, ActRegister.class);
-            startActivity(intent);
-        }else if(v == chatRecently){
-            //最近会话
-            Intent intent = new Intent(this, ActRecentConversation.class);
-            startActivity(intent);
-        }else if(v == chatRecently){
-            //设置
-            Toast.makeText(MainActivity.this,"3",Toast.LENGTH_SHORT);
-        }else if(v == singleChat){
-            //单聊
-            Context c = NimUIKit.getContext();
-            NimUIKit.startP2PSession(NimUIKit.getContext(), "qaul22222");
-        }else if(v == discussionGroup){
-            //讨论组聊天
-        }else if(v == groupChat){
-            //群聊
-            NimUIKit.startTeamInfo(NimUIKit.getContext(), "qaul22222");
-        }else if(v == addFriend){
-            //添加好友
-        }else if(v == searchGroup){
-            //搜索高级群
-        }else if(v == createGroup){
-            //创建讨论组
-            ContactSelectActivity.Option option = TeamHelper.getCreateContactSelectOption(null, 50);
-            NimUIKit.startContactSelector(MainActivity.this, option, REQUEST_CODE_NORMAL);
-        }else if(v == createSeniorGroup){
-            //创建高级群
-            ContactSelectActivity.Option advancedOption = TeamHelper.getCreateContactSelectOption(null, 50);
-            NimUIKit.startContactSelector(MainActivity.this, advancedOption, REQUEST_CODE_ADVANCED);
-        }else if(v == setting){
-            //设置
-        }else if(v == ougOut){
-            //注销
-        }else if(v == mailList){
-            //通信录
-            Intent intent = new Intent(this, ActMailList.class);
-            startActivity(intent);
+        switch (v.getId()) {
+            case R.id.login: // 登录
+                System.out.print("");
+                Intent intent = new Intent(this, ActLogin.class);
+                startActivity(intent);
+                break;
+            case R.id.register: // 注册
+                intent = new Intent(this, ActRegister.class);
+                startActivity(intent);
+                break;
+            case R.id.chat_recently: // 最近会话
+                intent = new Intent(this, ActRecentConversation.class);
+                startActivity(intent);
+                break;
+            case R.id.single_chat: // 单聊
+                NimUIKit.startP2PSession(NimUIKit.getContext(), "qaul22222");
+                break;
+            case R.id.discussion_group: // 讨论组
+                break;
+            case R.id.group_chat: // 群聊
+                NimUIKit.startTeamInfo(NimUIKit.getContext(), "qaul22222");
+                break;
+            case R.id.add_friend: // 添加好友
+                ActAddFriends.start(this);
+                break;
+            case R.id.search_group: // 搜索高级群
+                break;
+            case R.id.create_group: // 创建讨论组
+                break;
+            case R.id.create_senior_group: // 创建高级群
+                break;
+            case R.id.setting: // 设置
+                break;
+            case R.id.oug_out: // 注销
+                break;
+            default:
+                break;
         }
     }
 
