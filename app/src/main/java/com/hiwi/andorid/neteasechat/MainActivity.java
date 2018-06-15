@@ -1,6 +1,7 @@
 package com.hiwi.andorid.neteasechat;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -184,6 +185,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         MPermission.printMPermissionResult(false, this, BASIC_PERMISSIONS);
     }
+
+
+
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
