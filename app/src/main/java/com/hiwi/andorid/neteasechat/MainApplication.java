@@ -2,6 +2,7 @@ package com.hiwi.andorid.neteasechat;
 
 import android.app.Application;
 
+import com.hiwi.andorid.neteasechat.util.LogUtil;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.SDKOptions;
@@ -15,6 +16,7 @@ public class MainApplication extends Application {
         super.onCreate();
         DemoCache.setContext(this);
         NIMClient.init(this, loginInfo(), options());
+        LogUtil.level = LogUtil.DEBUG;
 
         if (NIMUtil.isMainProcess(this)) {
             // 在主进程中初始化UI组件，判断所属进程方法请参见demo源码。
