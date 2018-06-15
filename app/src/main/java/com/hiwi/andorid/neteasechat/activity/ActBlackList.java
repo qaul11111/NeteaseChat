@@ -57,10 +57,8 @@ public class ActBlackList extends AppCompatActivity {
                     public void onEvent(BlackListChangedNotify blackListChangedNotify) {
                         // 拉黑的名单集合
                         List<String> addAccountList = blackListChangedNotify.getAddedAccounts();
-
                         // 移除黑名单的集合
                         List<String> removeAccountList = blackListChangedNotify.getRemovedAccounts();
-
                     }
                 }, true);
     }
