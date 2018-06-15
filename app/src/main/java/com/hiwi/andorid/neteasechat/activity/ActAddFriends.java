@@ -21,12 +21,16 @@ import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.RequestCallback;
 import com.netease.nimlib.sdk.friend.FriendService;
+import com.netease.nimlib.sdk.friend.FriendServiceObserve;
 import com.netease.nimlib.sdk.friend.constant.VerifyType;
 import com.netease.nimlib.sdk.friend.model.AddFriendData;
 import com.netease.nimlib.sdk.friend.model.AddFriendNotify;
+import com.netease.nimlib.sdk.friend.model.BlackListChangedNotify;
 import com.netease.nimlib.sdk.msg.SystemMessageObserver;
 import com.netease.nimlib.sdk.msg.constant.SystemMessageType;
 import com.netease.nimlib.sdk.msg.model.SystemMessage;
+
+import java.util.List;
 
 public class ActAddFriends extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
@@ -91,6 +95,8 @@ public class ActAddFriends extends AppCompatActivity implements View.OnClickList
 
         // 初始化添加好友消息监听
         initMessageObserver();
+        // 初始化黑名单消息监听
+        initBlackListObserver();
         // 初始化界面
         initView();
     }
@@ -99,6 +105,24 @@ public class ActAddFriends extends AppCompatActivity implements View.OnClickList
         txtAddMsg.setVisibility(View.GONE);
         btnAcceptAdd.setVisibility(View.GONE);
         btnRefuseAdd.setVisibility(View.GONE);
+    }
+
+    /**
+     * 黑名单消息监听
+     */
+    private void initBlackListObserver() {
+        NIMClient.getService(FriendServiceObserve.class)
+                .observeBlackListChangedNotify(new Observer<BlackListChangedNotify>() {
+                    @Override
+                    public void onEvent(BlackListChangedNotify blackListChangedNotify) {
+                        // 拉黑的名单集合
+                        List<String> addAccountList = blackListChangedNotify.getAddedAccounts();
+
+                        // 移除黑名单的集合
+                        List<String> removeAccountList = blackListChangedNotify.getRemovedAccounts();
+
+                    }
+                }, true);
     }
 
     @Override
@@ -184,6 +208,9 @@ public class ActAddFriends extends AppCompatActivity implements View.OnClickList
         });
     }
 
+    /**
+     * 好友添加消息监听
+     */
     private void initMessageObserver() {
 
         NIMClient.getService(SystemMessageObserver.class).observeReceiveSystemMsg(new Observer<SystemMessage>() {
@@ -368,8 +395,6 @@ public class ActAddFriends extends AppCompatActivity implements View.OnClickList
      * 获取黑名单列表
      */
     private void getBlackList() {
-        NIMClient.getService(FriendService.class).getBlackList();
-
-
+        ActBlackList.start(this);
     }
 }
