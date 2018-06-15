@@ -369,5 +369,7 @@ public class ActAddFriends extends AppCompatActivity implements View.OnClickList
      */
     private void getBlackList() {
         NIMClient.getService(FriendService.class).getBlackList();
+
+
     }
 }
