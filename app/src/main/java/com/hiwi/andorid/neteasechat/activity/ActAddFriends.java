@@ -240,6 +240,10 @@ public class ActAddFriends extends AppCompatActivity implements View.OnClickList
     private void addFriend(final int type) {
         String friendName = editFriendName.getText().toString();
         if (!TextUtils.isEmpty(friendName)) {
+            if (NIMClient.getService(FriendService.class).isMyFriend(friendName)) {
+                Toast.makeText(this, "已经是好友", Toast.LENGTH_SHORT).show();
+                return;
+            }
             // DIRECT_ADD	直接加对方为好友
             // VERIFY_REQUEST	发起好友验证请求
             final VerifyType verifyType;
@@ -308,6 +312,10 @@ public class ActAddFriends extends AppCompatActivity implements View.OnClickList
     private void addBlackList() {
         String friendName = editFriendName.getText().toString();
         if (!TextUtils.isEmpty(friendName)) {
+            if (NIMClient.getService(FriendService.class).isInBlackList(friendName)) {
+                Toast.makeText(this, "已经在黑名单中", Toast.LENGTH_SHORT).show();
+                return;
+            }
             NIMClient.getService(FriendService.class).addToBlackList(friendName).setCallback(new RequestCallback<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
@@ -325,6 +333,8 @@ public class ActAddFriends extends AppCompatActivity implements View.OnClickList
                     LogUtil.w(TAG, "添加黑名单异常: " + throwable.getMessage());
                 }
             });
+
+
         }
     }
 
@@ -358,6 +368,6 @@ public class ActAddFriends extends AppCompatActivity implements View.OnClickList
      * 获取黑名单列表
      */
     private void getBlackList() {
-
+        NIMClient.getService(FriendService.class).getBlackList();
     }
 }
