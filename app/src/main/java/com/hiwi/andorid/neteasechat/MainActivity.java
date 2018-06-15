@@ -129,12 +129,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.search_group: // 搜索高级群
                 break;
             case R.id.create_group: // 创建讨论组
+                ContactSelectActivity.Option option = TeamHelper.getCreateContactSelectOption(null, 50);
+                NimUIKit.startContactSelector(MainActivity.this, option, REQUEST_CODE_NORMAL);
                 break;
             case R.id.create_senior_group: // 创建高级群
+                ContactSelectActivity.Option advancedOption = TeamHelper.getCreateContactSelectOption(null, 50);
+                NimUIKit.startContactSelector(MainActivity.this, advancedOption, REQUEST_CODE_ADVANCED);
                 break;
             case R.id.setting: // 设置
                 break;
             case R.id.oug_out: // 注销
+                break;
+            case R.id.mail_list: // 注销
+                intent = new Intent(this,ActMailList.class);
+                startActivity(intent);
                 break;
             default:
                 break;
