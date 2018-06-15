@@ -1,6 +1,7 @@
 package com.hiwi.andorid.neteasechat;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -12,9 +13,13 @@ import android.widget.Toast;
 
 import com.hiwi.andorid.neteasechat.activity.ActAddFriends;
 import com.hiwi.andorid.neteasechat.activity.ActLogin;
+import com.hiwi.andorid.neteasechat.activity.ActMailList;
 import com.hiwi.andorid.neteasechat.activity.ActRecentConversation;
 import com.hiwi.andorid.neteasechat.activity.ActRegister;
+import com.hiwi.andorid.neteasechat.team.TeamCreateHelper;
 import com.netease.nim.uikit.api.NimUIKit;
+import com.netease.nim.uikit.business.contact.selector.activity.ContactSelectActivity;
+import com.netease.nim.uikit.business.team.helper.TeamHelper;
 import com.netease.nim.uikit.support.permission.MPermission;
 import com.netease.nim.uikit.support.permission.annotation.OnMPermissionDenied;
 import com.netease.nim.uikit.support.permission.annotation.OnMPermissionGranted;
@@ -22,9 +27,14 @@ import com.netease.nim.uikit.support.permission.annotation.OnMPermissionNeverAsk
 import com.netease.nimlib.sdk.RequestCallback;
 import com.netease.nimlib.sdk.auth.LoginInfo;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "MainActivity";
+    private static final int REQUEST_CODE_NORMAL = 1;
+    private static final int REQUEST_CODE_ADVANCED = 2;
+
     private static final int BASIC_PERMISSION_REQUEST_CODE = 100;
     private Button login;
     private Button register;
@@ -68,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setting.setOnClickListener(this);
         ougOut.setOnClickListener(this);
     }
+
 
 
     private void init() {
@@ -175,5 +186,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         MPermission.printMPermissionResult(false, this, BASIC_PERMISSIONS);
     }
 
+
+
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == REQUEST_CODE_NORMAL) {
+                final ArrayList<String> selected = data.getStringArrayListExtra(ContactSelectActivity.RESULT_DATA);
+                if (selected != null && !selected.isEmpty()) {
+                    TeamCreateHelper.createNormalTeam(MainActivity.this, selected, false, null);
+                } else {
+                    Toast.makeText(MainActivity.this, "请选择至少一个联系人！", Toast.LENGTH_SHORT).show();
+                }
+            } else if (requestCode == REQUEST_CODE_ADVANCED) {
+                final ArrayList<String> selected = data.getStringArrayListExtra(ContactSelectActivity.RESULT_DATA);
+                TeamCreateHelper.createAdvancedTeam(MainActivity.this, selected);
+            }
+        }
+    }
 
 }
