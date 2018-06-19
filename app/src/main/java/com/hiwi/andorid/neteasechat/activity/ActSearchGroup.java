@@ -4,12 +4,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hiwi.andorid.neteasechat.R;
+import com.hiwi.andorid.neteasechat.util.LogUtil;
+import com.netease.nimlib.sdk.NIMClient;
+import com.netease.nimlib.sdk.RequestCallback;
+import com.netease.nimlib.sdk.team.TeamService;
+import com.netease.nimlib.sdk.team.model.Team;
 
 public class ActSearchGroup extends AppCompatActivity implements View.OnClickListener {
 
@@ -62,19 +69,62 @@ public class ActSearchGroup extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-
-
     /**
      * 加入群组
      */
     private void joinGroup() {
+        NIMClient.getService(TeamService.class).applyJoinTeam(groupId, "").setCallback(new RequestCallback<Team>() {
+            @Override
+            public void onSuccess(Team team) {
+                Toast.makeText(ActSearchGroup.this, "申请已发送", Toast.LENGTH_SHORT).show();
+            }
 
+            @Override
+            public void onFailed(int i) {
+                Toast.makeText(ActSearchGroup.this, "申请加入群失败", Toast.LENGTH_SHORT).show();
+                LogUtil.e(TAG, "申请加入群失败信息: " + i);
+
+            }
+
+            @Override
+            public void onException(Throwable throwable) {
+                LogUtil.w(TAG, "申请加入群异常: " + throwable.getMessage());
+            }
+        });
     }
 
     /**
      * 从服务器搜索群组
      */
     private void searchGroup() {
+        groupId = editSearchGroupId.getText().toString();
+        if (TextUtils.isEmpty(groupId)) {
+            Toast.makeText(this, "群组 id 不能为空", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
+        NIMClient.getService(TeamService.class).searchTeam(groupId).setCallback(new RequestCallback<Team>() {
+            @Override
+            public void onSuccess(final Team team) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtGroupName.setVisibility(View.VISIBLE);
+                        btnJoinGroup.setVisibility(View.VISIBLE);
+                        txtGroupName.setText(team.getName());
+                    }
+                });
+            }
+
+            @Override
+            public void onFailed(int i) {
+                Toast.makeText(ActSearchGroup.this, "不存在该群组", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onException(Throwable throwable) {
+                LogUtil.w(TAG, "查询群组异常信息: " + throwable.getMessage());
+            }
+        });
     }
 }
