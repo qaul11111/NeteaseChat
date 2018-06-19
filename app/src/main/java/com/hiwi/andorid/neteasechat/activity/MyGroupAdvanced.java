@@ -4,10 +4,14 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.hiwi.andorid.neteasechat.R;
 import com.hiwi.andorid.neteasechat.adapter.MyGroupAdapter;
+import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.RequestCallback;
 import com.netease.nimlib.sdk.team.TeamService;
@@ -39,6 +43,13 @@ public class MyGroupAdvanced extends Activity {
         listView = findViewById(R.id.act_my_group_advanced_list);
         adapter = new MyGroupAdapter(this);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String teamId = data.get(position).getId();
+                NimUIKit.startTeamSession(NimUIKit.getContext(),teamId);
+            }
+        });
     }
 
 

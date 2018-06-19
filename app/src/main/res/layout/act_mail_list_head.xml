@@ -15,4 +15,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="我的群聊"/>
+
+    <Button
+        android:id="@+id/act_mail_list_group_setting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="群聊设置"/>
 </LinearLayout>

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -32,7 +33,7 @@ import java.util.List;
 /**
  * 通讯录
  */
-public class ActMailList extends AppCompatActivity implements ISideBar, View.OnClickListener {
+public class ActMailList extends AppCompatActivity implements ISideBar, View.OnClickListener, AdapterView.OnItemClickListener {
 
     private TextView showTv;
     private SideBar bar;
@@ -44,6 +45,7 @@ public class ActMailList extends AppCompatActivity implements ISideBar, View.OnC
     private View listHead;
     private Button broupN;
     private Button broupA;
+    private Button groupSetting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,7 @@ public class ActMailList extends AppCompatActivity implements ISideBar, View.OnC
         listHead = inflater.inflate(R.layout.act_mail_list_head,null);
         broupN = listHead.findViewById(R.id.act_mail_list_group_n);
         broupA = listHead.findViewById(R.id.act_mail_list_group_a);
+        groupSetting = listHead.findViewById(R.id.act_mail_list_group_setting);
 
         bar = (SideBar) findViewById(R.id.slidBar);
         showTv = (TextView) findViewById(R.id.showTv);
@@ -79,6 +82,7 @@ public class ActMailList extends AppCompatActivity implements ISideBar, View.OnC
 
         for(UserInfo dto : userInfo){
             SortMode mailPeopleBean = new SortMode();
+            mailPeopleBean.setAccount(dto.getAccount());
             mailPeopleBean.setAvarat(dto.getAvatar());
             mailPeopleBean.setName(dto.getName());
             String AZ = characterParser.getSelling(dto.getName());
@@ -98,6 +102,8 @@ public class ActMailList extends AppCompatActivity implements ISideBar, View.OnC
         bar.setListener(this);
         broupN.setOnClickListener(this);
         broupA.setOnClickListener(this);
+        list.setOnItemClickListener(this);
+        groupSetting.setOnClickListener(this);
     }
 
     @Override
@@ -164,6 +170,14 @@ public class ActMailList extends AppCompatActivity implements ISideBar, View.OnC
             Intent intent = new Intent(this, MyGroupAdvanced.class);
             intent.putExtra("teamTypeEnum", "1");
             startActivity(intent);
+        }else if(v == groupSetting){
+            Intent intent = new Intent(this, GroupSetting.class);
+            startActivity(intent);
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        NimUIKit.startP2PSession(NimUIKit.getContext(), data.get(position-1).getAccount());
     }
 }
