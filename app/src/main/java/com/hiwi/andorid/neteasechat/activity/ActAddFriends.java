@@ -22,6 +22,7 @@ import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.RequestCallback;
 import com.netease.nimlib.sdk.friend.FriendService;
 import com.netease.nimlib.sdk.friend.FriendServiceObserve;
+import com.netease.nimlib.sdk.friend.constant.FriendFieldEnum;
 import com.netease.nimlib.sdk.friend.constant.VerifyType;
 import com.netease.nimlib.sdk.friend.model.AddFriendData;
 import com.netease.nimlib.sdk.friend.model.AddFriendNotify;
@@ -30,7 +31,9 @@ import com.netease.nimlib.sdk.msg.SystemMessageObserver;
 import com.netease.nimlib.sdk.msg.constant.SystemMessageType;
 import com.netease.nimlib.sdk.msg.model.SystemMessage;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ActAddFriends extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
@@ -41,6 +44,7 @@ public class ActAddFriends extends AppCompatActivity implements View.OnClickList
 
     private EditText editFriendName;
     private EditText editAddMsg;
+    private EditText editAlias;
     private TextView txtAddMsg;
     private Button btnAddFriend;
     private Button btnAcceptAdd;
@@ -49,6 +53,7 @@ public class ActAddFriends extends AppCompatActivity implements View.OnClickList
     private Button btnAddBlack;
     private Button btnRemoveBlack;
     private Button btnBlackList;
+    private Button btnUpdateAlias;
     private CheckBox checkDirectAdd;
     private CheckBox checkRequestAdd;
 
@@ -77,8 +82,10 @@ public class ActAddFriends extends AppCompatActivity implements View.OnClickList
         btnAddBlack = findViewById(R.id.btn_add_black);
         btnRemoveBlack = findViewById(R.id.btn_remove_black);
         btnBlackList = findViewById(R.id.btn_black_list);
+        btnUpdateAlias = findViewById(R.id.btn_update_alias);
         editFriendName = findViewById(R.id.edit_friendName);
         editAddMsg = findViewById(R.id.edit_addMsg);
+        editAlias = findViewById(R.id.edit_alias);
         checkDirectAdd = findViewById(R.id.check_direct_add);
         checkRequestAdd = findViewById(R.id.check_request_add);
 
@@ -89,6 +96,7 @@ public class ActAddFriends extends AppCompatActivity implements View.OnClickList
         btnAddBlack.setOnClickListener(this);
         btnRemoveBlack.setOnClickListener(this);
         btnBlackList.setOnClickListener(this);
+        btnUpdateAlias.setOnClickListener(this);
 
         checkDirectAdd.setOnCheckedChangeListener(this);
         checkRequestAdd.setOnCheckedChangeListener(this);
@@ -155,6 +163,9 @@ public class ActAddFriends extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.btn_black_list: // 获取黑名单列表
                 getBlackList();
+                break;
+            case R.id.btn_update_alias: // 修改备注名称
+                updateAlias();
                 break;
         }
     }
@@ -305,6 +316,66 @@ public class ActAddFriends extends AppCompatActivity implements View.OnClickList
                 }
             });
         }
+    }
+
+    /**
+     * 修改备注
+     *
+     * 注: 该方法还支持修改额外信息
+     */
+    private void updateAlias() {
+        String aliasText = editAlias.getText().toString();
+        String friendAccount = editFriendName.getText().toString();
+        if (TextUtils.isEmpty(friendAccount)) {
+            Toast.makeText(this, "账号不能为空", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (TextUtils.isEmpty(aliasText)) {
+            Toast.makeText(this, "备注名称不能为空", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Map<FriendFieldEnum, Object> aliasMap = new HashMap<>();
+        aliasMap.put(FriendFieldEnum.ALIAS, aliasText);
+        NIMClient.getService(FriendService.class).updateFriendFields(friendAccount, aliasMap).setCallback(new RequestCallback<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(ActAddFriends.this, "修改备注名称成功", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(int i) {
+                Toast.makeText(ActAddFriends.this, "修改备注名称失败", Toast.LENGTH_SHORT).show();
+                LogUtil.e(TAG, "修改备注名称失败信息: " + i);
+            }
+
+            @Override
+            public void onException(Throwable throwable) {
+                LogUtil.w(TAG, "修改备注名称异常: " + throwable.getMessage());
+            }
+        });
+
+        // 扩展字段示例
+//        Map<FriendFieldEnum, Object> extMap = new HashMap<>();
+//        Map<String, String> contentMap = new HashMap<>();
+//        contentMap.put("exts", "exts");
+//        extMap.put(FriendFieldEnum.EXTENSION, contentMap);
+//        NIMClient.getService(FriendService.class).updateFriendFields(friendAccount, extMap).setCallback(new RequestCallback<Void>() {
+//            @Override
+//            public void onSuccess(Void aVoid) {
+//
+//            }
+//
+//            @Override
+//            public void onFailed(int i) {
+//
+//            }
+//
+//            @Override
+//            public void onException(Throwable throwable) {
+//
+//            }
+//        });
     }
 
     /**

@@ -21,6 +21,7 @@ public class ActBlackList extends AppCompatActivity {
 
     private List<String> blackList = new ArrayList<>();
     private ListView listBlackView;
+    private ArrayAdapter<String> arrayAdapter;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, ActBlackList.class);
@@ -38,9 +39,8 @@ public class ActBlackList extends AppCompatActivity {
         initBlackListObserver();
 
         listBlackView = findViewById(R.id.list_black);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, blackList);
+        arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, blackList);
         listBlackView.setAdapter(arrayAdapter);
-
     }
 
     private void initBlackList() {
@@ -59,6 +59,15 @@ public class ActBlackList extends AppCompatActivity {
                         List<String> addAccountList = blackListChangedNotify.getAddedAccounts();
                         // 移除黑名单的集合
                         List<String> removeAccountList = blackListChangedNotify.getRemovedAccounts();
+
+                        blackList.addAll(addAccountList);
+                        blackList.removeAll(removeAccountList);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                arrayAdapter.notifyDataSetChanged();
+                            }
+                        });
                     }
                 }, true);
     }

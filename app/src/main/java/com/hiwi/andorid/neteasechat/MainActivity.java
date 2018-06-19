@@ -16,6 +16,7 @@ import com.hiwi.andorid.neteasechat.activity.ActLogin;
 import com.hiwi.andorid.neteasechat.activity.ActMailList;
 import com.hiwi.andorid.neteasechat.activity.ActRecentConversation;
 import com.hiwi.andorid.neteasechat.activity.ActRegister;
+import com.hiwi.andorid.neteasechat.activity.ActSearchGroup;
 import com.hiwi.andorid.neteasechat.team.TeamCreateHelper;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nim.uikit.business.contact.selector.activity.ContactSelectActivity;
@@ -127,6 +128,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 ActAddFriends.start(this);
                 break;
             case R.id.search_group: // 搜索高级群
+                ActSearchGroup.start(this);
                 break;
             case R.id.create_group: // 创建讨论组
                 ContactSelectActivity.Option option = TeamHelper.getCreateContactSelectOption(null, 50);
