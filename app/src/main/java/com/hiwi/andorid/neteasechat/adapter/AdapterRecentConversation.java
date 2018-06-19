@@ -72,7 +72,7 @@ public class AdapterRecentConversation extends BaseAdapter {
         }
         switch (type){
             case 0 :
-                holder.tv.setText("文字信息：");break;
+                holder.tv.setText("文字信息：" + recents.getContent());break;
             case 1 :
                 holder.tv.setText("图片信息：");break;
             case 2 :

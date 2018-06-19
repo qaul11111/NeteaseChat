@@ -116,6 +116,9 @@
 
         <activity android:name=".activity.MyGroupAdvanced"></activity>
 
+        <activity android:name=".activity.ActAddFriends"></activity>
+
+        <activity android:name=".activity.GroupSetting"></activity>
         <!-- *************************************************************************************************** -->
     </application>
 

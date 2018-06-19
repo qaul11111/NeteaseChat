@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.oug_out: // 注销
                 break;
-            case R.id.mail_list: // 注销
+            case R.id.mail_list: // 通讯录
                 intent = new Intent(this,ActMailList.class);
                 startActivity(intent);
                 break;

@@ -1,8 +1,18 @@
 package com.hiwi.andorid.neteasechat.custom.side_bar;
 
 public class SortMode {
+	private String account;
 	private String avarat;
 	private String name;
+
+	public String getAccount() {
+		return account;
+	}
+
+	public void setAccount(String account) {
+		this.account = account;
+	}
+
 	private String sortLetter;
 
 	private String cityID;//":"717126a5-e0ec-41f4-b520-13194e8e8bed",

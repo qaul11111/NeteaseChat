@@ -37,7 +37,7 @@ public class ActLogin extends Activity {
             public void onClick(View v) {
                 String name = ed1.getText().toString();
                 String pwd = ed2.getText().toString();
-
+//                ("qaul11111", "82480c6d75bf70b8c962625b3b153737"),
                 NimUIKit.login(new LoginInfo("qaul11111", "82480c6d75bf70b8c962625b3b153737"), new RequestCallback<LoginInfo>() {
                     @Override
                     public void onSuccess(LoginInfo loginInfo) {
