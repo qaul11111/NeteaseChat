@@ -17,6 +17,7 @@ import com.hiwi.andorid.neteasechat.activity.ActMailList;
 import com.hiwi.andorid.neteasechat.activity.ActRecentConversation;
 import com.hiwi.andorid.neteasechat.activity.ActRegister;
 import com.hiwi.andorid.neteasechat.activity.ActSearchGroup;
+import com.hiwi.andorid.neteasechat.activity.ActSysSetting;
 import com.hiwi.andorid.neteasechat.team.TeamCreateHelper;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nim.uikit.business.contact.selector.activity.ContactSelectActivity;
@@ -139,6 +140,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 NimUIKit.startContactSelector(MainActivity.this, advancedOption, REQUEST_CODE_ADVANCED);
                 break;
             case R.id.setting: // 设置
+                intent = new Intent(this, ActSysSetting.class);
+                startActivity(intent);
                 break;
             case R.id.oug_out: // 注销
                 break;
