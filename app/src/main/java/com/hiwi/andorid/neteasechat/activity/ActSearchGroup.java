@@ -81,7 +81,11 @@ public class ActSearchGroup extends AppCompatActivity implements View.OnClickLis
 
             @Override
             public void onFailed(int i) {
-                Toast.makeText(ActSearchGroup.this, "申请加入群失败", Toast.LENGTH_SHORT).show();
+                if (i == 809) {
+                    Toast.makeText(ActSearchGroup.this, "已经在该群内", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(ActSearchGroup.this, "申请加入群失败", Toast.LENGTH_SHORT).show();
+                }
                 LogUtil.e(TAG, "申请加入群失败信息: " + i);
 
             }
@@ -118,7 +122,18 @@ public class ActSearchGroup extends AppCompatActivity implements View.OnClickLis
 
             @Override
             public void onFailed(int i) {
-                Toast.makeText(ActSearchGroup.this, "不存在该群组", Toast.LENGTH_SHORT).show();
+                switch (i) {
+                    case 408:
+                        Toast.makeText(ActSearchGroup.this, "客户端请求超时, 请检查是否登录", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 803:
+                        Toast.makeText(ActSearchGroup.this, "不存在该群组", Toast.LENGTH_SHORT).show();
+                        break;
+                    default:
+                        Toast.makeText(ActSearchGroup.this, "搜索群失败", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                LogUtil.e(TAG, "查询群组出错信息: " + i);
             }
 
             @Override
