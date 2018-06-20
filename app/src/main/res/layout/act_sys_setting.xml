@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <com.netease.nim.uikit.common.ui.widget.SwitchButton
-        android:id="@+id/setting_item_toggle"
-        android:layout_width="58dip"
-        android:layout_height="36.67dip"
-        />
-</android.support.constraint.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="消息推送"/>
+        <com.netease.nim.uikit.common.ui.widget.SwitchButton
+            android:id="@+id/setting_item_toggle"
+            android:layout_width="58dip"
+            android:layout_height="36.67dip"
+            />
+    </LinearLayout>
+
+</LinearLayout>
