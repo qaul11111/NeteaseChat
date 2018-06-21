@@ -2,11 +2,9 @@ package com.hiwi.andorid.neteasechat;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -18,6 +16,7 @@ import com.hiwi.andorid.neteasechat.activity.ActRecentConversation;
 import com.hiwi.andorid.neteasechat.activity.ActRegister;
 import com.hiwi.andorid.neteasechat.activity.ActSearchGroup;
 import com.hiwi.andorid.neteasechat.activity.ActSysSetting;
+import com.hiwi.andorid.neteasechat.activity.ActUserInfoList;
 import com.hiwi.andorid.neteasechat.team.TeamCreateHelper;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nim.uikit.business.contact.selector.activity.ContactSelectActivity;
@@ -26,8 +25,8 @@ import com.netease.nim.uikit.support.permission.MPermission;
 import com.netease.nim.uikit.support.permission.annotation.OnMPermissionDenied;
 import com.netease.nim.uikit.support.permission.annotation.OnMPermissionGranted;
 import com.netease.nim.uikit.support.permission.annotation.OnMPermissionNeverAskAgain;
-import com.netease.nimlib.sdk.RequestCallback;
-import com.netease.nimlib.sdk.auth.LoginInfo;
+import com.netease.nimlib.sdk.NIMClient;
+import com.netease.nimlib.sdk.StatusCode;
 
 import java.util.ArrayList;
 
@@ -52,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button createSeniorGroup;
     private Button setting;
     private Button ougOut;
-
+    private Button userInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,9 +78,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         createSeniorGroup.setOnClickListener(this);
         setting.setOnClickListener(this);
         ougOut.setOnClickListener(this);
+        userInfo.setOnClickListener(this);
     }
-
-
 
     private void init() {
         login = findViewById(R.id.login);
@@ -98,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         createSeniorGroup = findViewById(R.id.create_senior_group);
         setting = findViewById(R.id.setting);
         ougOut = findViewById(R.id.oug_out);
-
+        userInfo = findViewById(R.id.btn_main_user_info);
     }
 
     @Override
@@ -148,6 +146,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.mail_list: // 通讯录
                 intent = new Intent(this,ActMailList.class);
                 startActivity(intent);
+                break;
+            case R.id.btn_main_user_info: // 个人资料
+                StatusCode status = NIMClient.getStatus();
+                if (status == StatusCode.UNLOGIN) {
+                    Toast.makeText(this, "请先登录", Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                ActUserInfoList.start(this);
                 break;
             default:
                 break;

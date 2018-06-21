@@ -39,15 +39,24 @@ public class ActSearchGroup extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_act_search_group);
 
+        // 初始化控件
+        findView();
+        // 初始化监听事件
+        initListener();
+        // 界面初始化设置
+        initView();
+    }
+
+    private void initListener() {
+        btnJoinGroup.setOnClickListener(this);
+        btnSearchGroup.setOnClickListener(this);
+    }
+
+    private void findView() {
         editSearchGroupId = findViewById(R.id.edit_search_group_id);
         btnSearchGroup = findViewById(R.id.btn_search_group);
         btnJoinGroup = findViewById(R.id.btn_search_join);
         txtGroupName = findViewById(R.id.txt_search_group_name);
-
-        btnJoinGroup.setOnClickListener(this);
-        btnSearchGroup.setOnClickListener(this);
-
-        initView();
     }
 
     private void initView() {

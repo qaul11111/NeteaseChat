@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">NeteaseChat</string>
+    <string name="user_info_update_cancel">取消更新</string>
+    <string name="user_info_update_failed">设置失败, 请重试</string>
+    <string name="head_update_success">头像设置成功</string>
+    <string name="head_update_failed">头像设置失败, 请重试</string>
 </resources>
