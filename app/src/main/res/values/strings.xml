@@ -4,4 +4,5 @@
     <string name="operation_too_frequent">操作太频繁</string>
     <string name="user_info_update_failed">设置失败，请重试</string>
     <string name="setting_close">已关闭</string>
+    <string name="no_disturb">免打扰</string>
 </resources>

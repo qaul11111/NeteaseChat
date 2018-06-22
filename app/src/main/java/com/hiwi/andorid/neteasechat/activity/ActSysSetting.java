@@ -72,7 +72,7 @@ public class ActSysSetting extends Activity{
         NimUIKit.isEarPhoneModeEnable();
 
         //免打扰
-//        disturbItem = new SettingTemplate(TAG_NO_DISTURBE, getString(R.string.no_disturb), noDisturbTime);
+        disturbItem = new SettingTemplate(TAG_NO_DISTURBE, getString(R.string.no_disturb), noDisturbTime);
 
 
 
