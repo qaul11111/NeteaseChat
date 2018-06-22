@@ -1,7 +1,9 @@
 package com.hiwi.andorid.neteasechat;
 
 import android.app.Application;
+import android.text.TextUtils;
 
+import com.hiwi.andorid.neteasechat.config.preference.Preferences;
 import com.hiwi.andorid.neteasechat.util.LogUtil;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nimlib.sdk.NIMClient;
@@ -15,7 +17,7 @@ public class MainApplication extends Application {
     public void onCreate() {
         super.onCreate();
         DemoCache.setContext(this);
-        NIMClient.init(this, loginInfo(), options());
+        NIMClient.init(this, getLoginInfo(), options());
         LogUtil.level = LogUtil.DEBUG;
 
         if (NIMUtil.isMainProcess(this)) {
@@ -38,5 +40,18 @@ public class MainApplication extends Application {
 
     private LoginInfo loginInfo() {
         return null;
+    }
+
+
+    private LoginInfo getLoginInfo() {
+        String account = Preferences.getUserAccount();
+        String token = Preferences.getUserToken();
+
+        if (!TextUtils.isEmpty(account) && !TextUtils.isEmpty(token)) {
+            DemoCache.setAccount(account.toLowerCase());
+            return new LoginInfo(account, token);
+        } else {
+            return null;
+        }
     }
 }

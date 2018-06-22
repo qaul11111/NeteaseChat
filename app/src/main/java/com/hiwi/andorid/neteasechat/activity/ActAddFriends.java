@@ -1,5 +1,7 @@
 package com.hiwi.andorid.neteasechat.activity;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -72,19 +74,6 @@ public class ActAddFriends extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_act_add_friends);
 
-        // 初始化 view 控件
-        findView();
-        // 初始化控件监听事件
-        initListener();
-        // 初始化添加好友消息监听
-        initMessageObserver();
-        // 初始化黑名单消息监听
-        initBlackListObserver();
-        // 初始化界面
-        initView();
-    }
-
-    private void findView() {
         txtAddMsg = findViewById(R.id.txt_addMsg);
         btnAddFriend = findViewById(R.id.btn_addFriend);
         btnAcceptAdd = findViewById(R.id.btn_accept_add);
@@ -99,9 +88,7 @@ public class ActAddFriends extends AppCompatActivity implements View.OnClickList
         editAlias = findViewById(R.id.edit_alias);
         checkDirectAdd = findViewById(R.id.check_direct_add);
         checkRequestAdd = findViewById(R.id.check_request_add);
-    }
 
-    private void initListener() {
         btnAddFriend.setOnClickListener(this);
         btnAcceptAdd.setOnClickListener(this);
         btnRefuseAdd.setOnClickListener(this);
@@ -113,6 +100,13 @@ public class ActAddFriends extends AppCompatActivity implements View.OnClickList
 
         checkDirectAdd.setOnCheckedChangeListener(this);
         checkRequestAdd.setOnCheckedChangeListener(this);
+
+        // 初始化添加好友消息监听
+        initMessageObserver();
+        // 初始化黑名单消息监听
+        initBlackListObserver();
+        // 初始化界面
+        initView();
     }
 
     private void initView() {

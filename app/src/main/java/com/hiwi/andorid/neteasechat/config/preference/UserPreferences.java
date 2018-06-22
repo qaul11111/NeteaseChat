@@ -189,6 +189,7 @@ public class UserPreferences {
     }
 
     static SharedPreferences getSharedPreferences() {
-        return DemoCache.getContext().getSharedPreferences("Demo." + DemoCache.getAccount(), Context.MODE_PRIVATE);
+        String path = "Demo." + DemoCache.getAccount();
+        return DemoCache.getContext().getSharedPreferences(path, Context.MODE_PRIVATE);
     }
 }

@@ -39,24 +39,15 @@ public class ActSearchGroup extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_act_search_group);
 
-        // 初始化控件
-        findView();
-        // 初始化监听事件
-        initListener();
-        // 界面初始化设置
-        initView();
-    }
-
-    private void initListener() {
-        btnJoinGroup.setOnClickListener(this);
-        btnSearchGroup.setOnClickListener(this);
-    }
-
-    private void findView() {
         editSearchGroupId = findViewById(R.id.edit_search_group_id);
         btnSearchGroup = findViewById(R.id.btn_search_group);
         btnJoinGroup = findViewById(R.id.btn_search_join);
         txtGroupName = findViewById(R.id.txt_search_group_name);
+
+        btnJoinGroup.setOnClickListener(this);
+        btnSearchGroup.setOnClickListener(this);
+
+        initView();
     }
 
     private void initView() {
@@ -90,11 +81,7 @@ public class ActSearchGroup extends AppCompatActivity implements View.OnClickLis
 
             @Override
             public void onFailed(int i) {
-                if (i == 809) {
-                    Toast.makeText(ActSearchGroup.this, "已经在该群内", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(ActSearchGroup.this, "申请加入群失败", Toast.LENGTH_SHORT).show();
-                }
+                Toast.makeText(ActSearchGroup.this, "申请加入群失败", Toast.LENGTH_SHORT).show();
                 LogUtil.e(TAG, "申请加入群失败信息: " + i);
 
             }
@@ -131,18 +118,7 @@ public class ActSearchGroup extends AppCompatActivity implements View.OnClickLis
 
             @Override
             public void onFailed(int i) {
-                switch (i) {
-                    case 408:
-                        Toast.makeText(ActSearchGroup.this, "客户端请求超时, 请检查是否登录", Toast.LENGTH_SHORT).show();
-                        break;
-                    case 803:
-                        Toast.makeText(ActSearchGroup.this, "不存在该群组", Toast.LENGTH_SHORT).show();
-                        break;
-                    default:
-                        Toast.makeText(ActSearchGroup.this, "搜索群失败", Toast.LENGTH_SHORT).show();
-                        break;
-                }
-                LogUtil.e(TAG, "查询群组出错信息: " + i);
+                Toast.makeText(ActSearchGroup.this, "不存在该群组", Toast.LENGTH_SHORT).show();
             }
 
             @Override

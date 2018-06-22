@@ -11,10 +11,15 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.hiwi.andorid.neteasechat.ContactHttpClient;
+import com.hiwi.andorid.neteasechat.DemoCache;
 import com.hiwi.andorid.neteasechat.R;
+import com.hiwi.andorid.neteasechat.config.preference.Preferences;
+import com.hiwi.andorid.neteasechat.config.preference.UserPreferences;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nim.uikit.common.ui.dialog.DialogMaker;
+import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.RequestCallback;
+import com.netease.nimlib.sdk.StatusBarNotificationConfig;
 import com.netease.nimlib.sdk.auth.AuthService;
 import com.netease.nimlib.sdk.auth.LoginInfo;
 
@@ -41,7 +46,13 @@ public class ActLogin extends Activity {
                 NimUIKit.login(new LoginInfo("qaul11111", "82480c6d75bf70b8c962625b3b153737"), new RequestCallback<LoginInfo>() {
                     @Override
                     public void onSuccess(LoginInfo loginInfo) {
+                        DemoCache.setAccount("qaul11111");
+                        saveLoginInfo("qaul11111", "82480c6d75bf70b8c962625b3b153737");
                         Log.e(TAG, "onSuccess: ");
+
+                        // 初始化消息提醒配置
+                        initNotificationConfig();
+
                         Toast.makeText(ActLogin.this,"登录成功",Toast.LENGTH_LONG).show();
                         ActLogin.this.finish();
 //                        NimUIKit.startP2PSession(NimUIKit.getContext(), "qaul22222");
@@ -69,5 +80,25 @@ public class ActLogin extends Activity {
         finish();
         overridePendingTransition(0,R.anim.out);
         return super.onKeyDown(keyCode, event);
+    }
+
+    private void saveLoginInfo(final String account, final String token) {
+        Preferences.saveUserAccount(account);
+        Preferences.saveUserToken(token);
+    }
+
+
+    private void initNotificationConfig() {
+        // 初始化消息提醒
+        NIMClient.toggleNotification(UserPreferences.getNotificationToggle());
+
+        // 加载状态栏配置
+        StatusBarNotificationConfig statusBarNotificationConfig = UserPreferences.getStatusConfig();
+        if (statusBarNotificationConfig == null) {
+            statusBarNotificationConfig = DemoCache.getNotificationConfig();
+            UserPreferences.setStatusConfig(statusBarNotificationConfig);
+        }
+        // 更新配置
+        NIMClient.updateStatusBarNotificationConfig(statusBarNotificationConfig);
     }
 }

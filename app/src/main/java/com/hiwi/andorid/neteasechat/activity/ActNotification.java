@@ -41,28 +41,19 @@ public class ActNotification extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_act_notification);
 
-        // 初始化 view 控件
-        findView();
-        // 初始化控件监听
-        initListener();
-        // 初始化用户静音列表监听
-        initObserveMuteListChangedNotify();
-    }
-
-    private void initListener() {
-        btnNoticeClose.setOnClickListener(this);
-        btnNoticeOpen.setOnClickListener(this);
-        btnNoticeCloseMute.setOnClickListener(this);
-        btnNoticeViewMute.setOnClickListener(this);
-    }
-
-    private void findView() {
         btnNoticeClose = findViewById(R.id.btn_notice_close);
         btnNoticeOpen = findViewById(R.id.btn_notice_open);
         btnNoticeViewMute = findViewById(R.id.btn_notice_view_mute);
         btnNoticeCloseMute = findViewById(R.id.btn_notice_close_mute);
         txtNoticeAccount = findViewById(R.id.txt_notice_account);
         listNoticeMuteView = findViewById(R.id.list_notice_mute);
+
+        btnNoticeClose.setOnClickListener(this);
+        btnNoticeOpen.setOnClickListener(this);
+        btnNoticeCloseMute.setOnClickListener(this);
+        btnNoticeViewMute.setOnClickListener(this);
+
+        initObserveMuteListChangedNotify();
     }
 
     /**

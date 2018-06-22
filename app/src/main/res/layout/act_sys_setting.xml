@@ -13,9 +13,77 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
-            android:text="消息推送"/>
+            android:text="消息提醒"/>
         <com.netease.nim.uikit.common.ui.widget.SwitchButton
-            android:id="@+id/setting_item_toggle"
+            android:id="@+id/setting_message_reminding"
+            android:layout_width="58dip"
+            android:layout_height="36.67dip"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="响铃模式"/>
+        <com.netease.nim.uikit.common.ui.widget.SwitchButton
+            android:id="@+id/setting_answer_ring_pattern"
+            android:layout_width="58dip"
+            android:layout_height="36.67dip"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="免打扰"/>
+        <com.netease.nim.uikit.common.ui.widget.SwitchButton
+            android:id="@+id/setting_do_not_disturb"
+            android:layout_width="58dip"
+            android:layout_height="36.67dip"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="听筒模式"/>
+        <com.netease.nim.uikit.common.ui.widget.SwitchButton
+            android:id="@+id/setting_receiver_mode"
+            android:layout_width="58dip"
+            android:layout_height="36.67dip"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="清空缓存"/>
+        <com.netease.nim.uikit.common.ui.widget.SwitchButton
+            android:id="@+id/setting_wipe_cache"
             android:layout_width="58dip"
             android:layout_height="36.67dip"
             />
