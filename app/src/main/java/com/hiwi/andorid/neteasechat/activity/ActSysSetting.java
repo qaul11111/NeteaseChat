@@ -17,6 +17,7 @@ import com.netease.nimlib.sdk.ResponseCode;
 import com.netease.nimlib.sdk.StatusBarNotificationConfig;
 import com.netease.nimlib.sdk.misc.MiscService;
 import com.netease.nimlib.sdk.mixpush.MixPushService;
+import com.netease.nimlib.sdk.msg.MsgService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,7 @@ public class ActSysSetting extends Activity{
     private boolean notificationFlag;
     private boolean ringFlag;
     private SwitchButton ringPattern;
+    private SwitchButton doNotDisturb;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class ActSysSetting extends Activity{
         //消息提醒
         messageReminding = findViewById(R.id.setting_message_reminding);
         ringPattern = findViewById(R.id.setting_answer_ring_pattern);
+        doNotDisturb = findViewById(R.id.setting_do_not_disturb);
     }
 
     private void initData() {
@@ -73,10 +76,15 @@ public class ActSysSetting extends Activity{
 
         //免打扰
         disturbItem = new SettingTemplate(TAG_NO_DISTURBE, getString(R.string.no_disturb), noDisturbTime);
+        if("已关闭".equals(noDisturbTime)){
+            doNotDisturb.setCheck(false);
+        }else{
+            doNotDisturb.setCheck(true);
+        }
 
 
-
-
+        //清空缓存
+//        NIMClient.getService(MsgService.class).clearMsgDatabase(true);
     }
 
 
@@ -97,6 +105,33 @@ public class ActSysSetting extends Activity{
                 config.ring = checkState;
                 UserPreferences.setStatusConfig(config);
                 NIMClient.updateStatusBarNotificationConfig(config);
+            }
+        });
+
+        doNotDisturb.setOnChangedListener(new SwitchButton.OnChangedListener() {
+            @Override
+            public void OnChanged(View v, final boolean checkState) {
+                NIMClient.getService(MixPushService.class).setPushNoDisturbConfig(checkState,
+                        "22:00", "08:00").setCallback(new RequestCallback<Void>() {
+                    @Override
+                    public void onSuccess(Void param) {
+//                        // save
+                        saveStatusConfig(checkState);
+
+                        Toast.makeText(ActSysSetting.this, "免打扰设置成功 ", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailed(int code) {
+//                        resetFail(ischecked);
+                        Toast.makeText(ActSysSetting.this, "免打扰设置失败 " + code, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onException(Throwable exception) {
+
+                    }
+                });
             }
         });
     }
@@ -147,5 +182,15 @@ public class ActSysSetting extends Activity{
 
     private void setNotificationToggle(boolean on) {
         UserPreferences.setNotificationToggle(on);
+    }
+
+    private void saveStatusConfig(boolean checkState) {
+        UserPreferences.setDownTimeToggle(checkState);
+        StatusBarNotificationConfig config = UserPreferences.getStatusConfig();
+        config.downTimeToggle = checkState;
+        config.downTimeBegin = "22:00";
+        config.downTimeEnd = "08:00";
+        UserPreferences.setStatusConfig(config);
+        NIMClient.updateStatusBarNotificationConfig(config);
     }
 }
